@@ -1,0 +1,80 @@
+{
+  "name": "reboots",
+  "description": "reboots FE solution build on top React React-route Webpack",
+  "version": "0.1.5",
+  "author": {
+    "name": "SijieCai",
+    "email": "sijie.cai@qq.com"
+  },  
+  "files": [
+    "bin",
+    "lib",
+    "template",
+    "doc"
+  ],
+  "scripts": {
+    "test": "npm run eslint && npm run test-cov",
+    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -t 10000 --recursive  -R spec test/",
+    "compile": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/ --out-dir lib/",
+    "watch-compile": "npm run compile -- --watch",
+    "clean": "rimraf src/build/* dist/*",
+    "watch": "npm run watch-compile",
+    "prepublish": "npm run compile",
+    "eslint": "eslint src/"
+  },
+  "bin": {
+    "reboots": "./bin/index.js"
+  },
+  "contributors": [{
+    "name": "SijieCai",
+    "email": "sijie.cai@gmail.com"
+  }],
+  "main": "lib/index.js",
+  "dependencies": {
+    "mime": "1.3.4",
+    "thinkit": "4.4.0",
+    "babel-runtime": "6.3.19",
+    "bluebird": "3.1.1",
+    "colors": "1.1.2",
+    "validator": "4.2.0",
+    "commander": "2.9.0",
+    "esprima": "^2.7.0",
+    "esprima-walk": "^0.1.0",
+    "escodegen": "^1.7.0"
+  },
+  "devDependencies": {
+    "mocha": "1.20.1",
+    "muk": "0.3.1",
+    "istanbul": "0.4.0",
+    "babel-cli": "6.3.17",
+    "babel-preset-es2015-loose": "6.1.4",
+    "babel-preset-stage-1": "6.3.13",
+    "babel-plugin-transform-runtime": "6.3.13",
+    "eslint": "1.10.2",
+    "babel-eslint": "5.0.0-beta4",
+    "babel-core": "6.x.x"
+  },
+  "keywords": [
+    "reboots",
+    "react",
+    "framework",
+    "web",
+    "react-route",
+    "webpack",
+    "router",
+    "es6",
+    "es7"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SijieCai/reboots"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/SijieCai/reboots/issues"
+  }
+}

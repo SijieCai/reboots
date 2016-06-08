@@ -1,0 +1,5 @@
+{
+  "createAt": "<%=createAt%>",
+  "style": "<%=style%>",
+  "routes": {}
+}

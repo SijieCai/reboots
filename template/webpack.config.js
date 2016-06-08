@@ -1,0 +1,105 @@
+var path = require('path');
+var args = require('minimist')(process.argv.slice(2));
+var webpack = require('webpack');
+var _ = require('lodash');
+
+// List of allowed environments
+var allowedEnvs = ['dev', 'hot', 'dist'];
+var env = args.env;
+if(allowedEnvs.indexOf(env) === -1) {
+  env = 'dev';
+}
+
+process.env.REACT_WEBPACK_ENV = env;
+
+var entryDir = path.join(__dirname, '/src/app');
+var base = {
+  entry: {},
+  output: {
+    path: 'src/build',
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
+    publicPath: '/build/'
+  },
+
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      components: entryDir + '/components'
+    }
+  },
+
+  module: {
+    preLoaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader'
+    }],
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      loader: 'babel-loader',
+      include: entryDir,
+      exclude: /node_modules/
+    },
+    {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader!postcss-loader'
+    }, {
+      test: /\.sass/,
+      loader: 'style-loader!css-loader!sass-loader'
+    }, {
+      test: /\.scss/,
+      loader: 'style-loader!css-loader!sass-loader'
+    }, {
+      test: /\.less/,
+      loader: 'style-loader!css-loader!less-loader'
+    }, {
+      test: /\.styl/,
+      loader: 'style-loader!css-loader!stylus-loader'
+    }, {
+      test: /\.(png|jpg|gif|ttf|eot|svg|woff|woff2)$/,
+      loader: 'url-loader?name=[path][name].[ext]&limit=200000'
+    }]
+  },
+  postcss: function() {
+    return [];
+  },
+  plugins: [
+  ],
+  devServer: {
+    port: 8360,
+    historyApiFallback: {
+      rewrites: []
+    }
+  }
+};
+
+var configs = {};
+
+configs.dev = _.merge({
+  cache: true,
+  devtool: 'inline-source-map',
+}, base); 
+
+configs.hot = _.merge({
+  cache: true,
+  devtool: 'inline-source-map'
+}, base);
+configs.hot.module.loaders[0].loader = 'react-hot-loader!babel-loader';
+
+configs.dist = _.merge({
+  cache: false,
+  devtool: 'sourcemap',
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
+}, base); 
+
+module.exports = configs[env];

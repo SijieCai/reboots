@@ -1,7 +1,7 @@
 {
   "name": "reboots",
   "description": "reboots FE solution build on top React React-route Webpack",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": {
     "name": "SijieCai",
     "email": "sijie.cai@qq.com"

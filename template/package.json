@@ -10,8 +10,9 @@
     "serve:dist": "webpack-dev-server --env dist --config=webpack.config.js --content-base src/ --inline",
     "copy": "node -e \"require('directory-copy')({src: __dirname + '/src',dest: __dirname + '/dist',excludes: [/^\\app/]},function(err){console.log('done!')});\"",
     "clean": "rimraf src/build/* dist/*",
-    "release:dev": "npm run clean && webpack --config=webpack.config.js && npm run copy",
-    "release:dist": "npm run clean && webpack --env dist --config=webpack.config.js && npm run copy"
+    "clean:src": "rimraf src/build/*",
+    "release:dev": "npm run clean && webpack --config=webpack.config.js && npm run copy && npm run clean:src && node postrelease.js",
+    "release:dist": "npm run clean && webpack --env dist --config=webpack.config.js && npm run copy && npm run clean:src && node postrelease.js"
   },
   "repository": "",
   "keywords": [
@@ -35,6 +36,7 @@
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
     "postcss-loader": "^0.8.0",
+    "imports-loader": "^0.6.5",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",

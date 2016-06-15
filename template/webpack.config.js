@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var _ = require('lodash');
 
 // List of allowed environments
-var allowedEnvs = ['dev', 'hot', 'dist'];
+var allowedEnvs = ['dev', 'dist'];
 var env = args.env;
 if(allowedEnvs.indexOf(env) === -1) {
   env = 'dev';
@@ -59,6 +59,11 @@ var base = {
     }, {
       test: /\.(png|jpg|gif|ttf|eot|svg|woff|woff2)$/,
       loader: 'url-loader?name=[path][name].[ext]&limit=200000'
+    },
+    {
+      test: /environment\.bin?$/,
+      loader: 'imports-loader?environment=>"' + env + '"',
+      exclude: /node_modules/
     }]
   },
   postcss: function() {
@@ -81,20 +86,10 @@ configs.dev = _.merge({
   devtool: 'inline-source-map',
 }, base); 
 
-configs.hot = _.merge({
-  cache: true,
-  devtool: 'inline-source-map'
-}, base);
-configs.hot.module.loaders[0].loader = 'react-hot-loader!babel-loader';
-
 configs.dist = _.merge({
   cache: false,
   devtool: 'sourcemap',
   plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    }),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),

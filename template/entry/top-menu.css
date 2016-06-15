@@ -1,4 +1,3 @@
-
 .top-menu-component {
   font-size: 14px;
   background-color: #E6E6E6;
@@ -27,27 +26,28 @@
   position: relative;
   display: inline-block;
   height: 37px;
-  a {
-    color: #4D4D4D;
-    display: inline-block;
-    font-weight: bold;
-    margin: 9px 25.5px;
-    padding-bottom: 7px;
+}
 
-    &:hover {
-      color: #000;
-      text-decoration: none;
-    }
+.top-menu__content__menu a {
+  color: #4D4D4D;
+  display: inline-block;
+  font-weight: bold;
+  margin: 9px 25.5px;
+  padding-bottom: 7px;
+}
 
-    &:focus {
-      outline: none;
-      outline-offset: 0;
-      text-decoration: none;
-    }
-  }
+.top-menu__content__menu a:hover {
+  color: #000;
+  text-decoration: none;
+}
 
-  .active-menu {
-    border-bottom: 2px solid #00A3F2;
-    color: #000;
-  }
+.top-menu__content__menu a:focus {
+  outline: none;
+  outline-offset: 0;
+  text-decoration: none;
+}
+
+.top-menu__content__menu .active-menu {
+  border-bottom: 2px solid #00A3F2;
+  color: #000;
 }

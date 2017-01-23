@@ -1,4 +1,4 @@
-import {AuthRoute} from 'auth';
+import {RBAuthRoute} from 'rb-component';
 
 function chunkLoader(cb) {
   require([
@@ -7,7 +7,7 @@ function chunkLoader(cb) {
   ], cb);
 }
 
-export default AuthRoute({
+export default RBAuthRoute({
   path: '<%=route.name%>',
   chunkLoader: chunkLoader
 });

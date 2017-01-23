@@ -1,11 +1,11 @@
 {
   "name": "reboots",
   "description": "reboots FE solution build on top React React-route Webpack",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": {
     "name": "SijieCai",
     "email": "sijie.cai@qq.com"
-  },  
+  },
   "files": [
     "bin",
     "lib",
